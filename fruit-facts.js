@@ -52,6 +52,24 @@ const FRUIT_FACTS = {
       "Supports skin health"
     ],
     season: "Peak season from November to March"
+  },
+  cherry: {
+    nutrition: {
+      calories: "77 kcal",
+      fiber: "2.5g",
+      vitamin_c: "16% DV"
+    },
+    facts: [
+      "Each cherry tree can produce up to 7,000 cherries per season",
+      "Cherries are one of the few natural sources of melatonin",
+      "The world’s cherry capital is Traverse City, Michigan"
+    ],
+    benefits: [
+      "Supports muscle recovery after exercise",
+      "Packed with antioxidants and anti-inflammatory compounds",
+      "Promotes better sleep quality"
+    ],
+    season: "Best enjoyed from May through July"
   }
 };
 
