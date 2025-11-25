@@ -25,6 +25,11 @@ const BUNDLES = {
     products: ["apple", "banana", "lemon"],
     emoji: "🍏🍌🍋"
   }
+  citrus_spark: {
+    name: "Citrus Spark",
+    products: ["lemon", "cherry"],
+    emoji: "🍋🍒"
+  }
 };
 
 function getBasket() {
