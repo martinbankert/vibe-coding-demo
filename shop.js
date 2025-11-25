@@ -30,7 +30,7 @@ const BUNDLES = {
     name: "Orchard Bliss",
     products: ["apple", "cherry"],
     emoji: "🍏🍒"
-  }
+  },
   citrus_spark: {
     name: "Citrus Spark",
     products: ["lemon", "cherry"],
@@ -131,3 +131,61 @@ window.clearBasket = function () {
   origClearBasket();
   renderBasketIndicator();
 };
+
+(function initThemeToggle() {
+  const STORAGE_KEY = "fruit-shop-theme";
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem(STORAGE_KEY);
+  const initialTheme = savedTheme || (prefersDark.matches ? "dark" : "light");
+
+  applyTheme(initialTheme);
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    updateToggle(theme);
+  }
+
+  function updateToggle(theme) {
+    const toggle = document.querySelector(".theme-toggle");
+    if (!toggle) return;
+    const icon = toggle.querySelector(".theme-toggle__icon");
+    const label = toggle.querySelector(".theme-toggle__label");
+    if (icon) icon.textContent = theme === "dark" ? "🌙" : "🌞";
+    if (label) label.textContent = theme === "dark" ? "Dark" : "Light";
+    toggle.setAttribute("aria-pressed", theme === "dark");
+  }
+
+  function createToggle() {
+    const header = document.querySelector("header");
+    if (!header || header.querySelector(".theme-toggle")) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "theme-toggle";
+    button.setAttribute("aria-label", "Toggle color theme");
+    button.innerHTML = `
+      <span class="theme-toggle__icon"></span>
+      <span class="theme-toggle__label"></span>
+    `;
+    button.addEventListener("click", () => {
+      const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+    });
+    header.appendChild(button);
+    updateToggle(root.getAttribute("data-theme") || initialTheme);
+  }
+
+  const initToggle = () => createToggle();
+
+  if (document.readyState !== "loading") {
+    initToggle();
+  } else {
+    document.addEventListener("DOMContentLoaded", initToggle);
+  }
+
+  prefersDark.addEventListener("change", (event) => {
+    if (localStorage.getItem(STORAGE_KEY)) return;
+    applyTheme(event.matches ? "dark" : "light");
+  });
+})();
