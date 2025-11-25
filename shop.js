@@ -30,7 +30,7 @@ const BUNDLES = {
     name: "Orchard Bliss",
     products: ["apple", "cherry"],
     emoji: "🍏🍒"
-  }
+  },
   citrus_spark: {
     name: "Citrus Spark",
     products: ["lemon", "cherry"],
